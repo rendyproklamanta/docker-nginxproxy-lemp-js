@@ -10,13 +10,13 @@ docker network create nginx-proxy
 docker-compose -f docker-compose.nginx-php.yml up --build -d
 ```
 
-# 3. Run mysql + phpmyadmin + redis (optional)
+# 3. Run mysql + phpmyadmin + redis
 
 ```
 docker-compose -f docker-compose.database.yml up --build -d
 ```
 
-- Main Website (80) : http://localhost
+- MySQL (3306) : mysql -u root -p root -h host -P 3306 
 - PhpMyAdmin (8000) : http://localhost:8000
 - Redis (6379) : http://localhost:6379
 
