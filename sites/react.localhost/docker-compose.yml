@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  dashboard:
+    container_name: mydocker-dashboard-dev
+    image: mydocker/dashboard-dev
+    restart: always
+    build:
+      context: ./
+      dockerfile: ./Dockerfiles/Dockerfile
+    expose:
+      - 80
+    env_file:
+      - .env
+
+networks:
+  default:
+    external:
+      name: nginx-proxy

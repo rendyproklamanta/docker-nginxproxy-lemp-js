@@ -1,0 +1,18 @@
+FROM node:16-alpine
+
+ENV SRCDIR /src
+RUN mkdir -p $SRCDIR/app && chown -R node:node $SRCDIR
+
+# Add custom environment to pass in development server
+ENV PATH $SRCDIR/app/node_modules/.bin:$PATH
+
+WORKDIR $SRCDIR/app
+COPY ./package.json .
+
+RUN yarn cache clean && yarn --verbose
+
+COPY . .
+
+EXPOSE 3000
+
+CMD ["node", "server.js"]

@@ -1,0 +1,29 @@
+version: '3.9'
+
+services:
+  dashboard:
+    container_name: mydocker-dashboard-local
+    image: mydocker/dashboard-local
+    restart: always
+    build:
+      context: ./
+      dockerfile: ./Dockerfiles/Dockerfile.local
+    volumes:
+      # - ./:/var/www/public/react.localhost # Comment out if you want ro use nginx-proxy, edit VIRTUAL_ROOT in env/local.env
+      - ./:/app
+      - /app/node_modules
+    env_file:
+      - ./env/local.env
+
+    # Uncomment ports if you not want using reverse nginx-proxy, and access web using : http://localhost:3001
+    # Comment ports and add VIRTUAL_HOST in your .env file to make reverse proxy work : http://react.localhost
+    ports:
+      - 3001:3001
+    expose:
+      - 80
+
+## Comment out if you want to use reverse nginx-proxy : http://react.localhost
+# networks:
+#   default:
+#     external:
+#       name: nginx-proxy

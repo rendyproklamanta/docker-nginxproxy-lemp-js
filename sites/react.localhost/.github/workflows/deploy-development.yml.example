@@ -1,0 +1,28 @@
+name: deploy-development
+
+on:
+  push:
+    branches:
+      - dev
+jobs:
+  deploy-development:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Deploy Development
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            cd /home/dev.domain.com
+            git switch dev
+            git pull origin dev
+            cd /home/dev.domain.com/deploy
+            chmod +x development.sh
+            ./development.sh
+            chmod -x development.sh

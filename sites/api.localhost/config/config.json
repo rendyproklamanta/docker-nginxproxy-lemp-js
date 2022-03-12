@@ -1,0 +1,29 @@
+{
+	"development": {
+		"username": "root",
+		"password": "<YOUR-PASSWORD>",
+		"database": "crud",
+		"host": "localhost",
+		"dialect": "mysql",
+		"timezone": "Asia/Jakarta",
+		"operatorsAliases": false
+	},
+	"local": {
+		"username": "root",
+		"password": "<YOUR-PASSWORD>",
+		"database": "crud",
+		"host": "host.docker.internal",
+		"dialect": "mysql",
+		"timezone": "Asia/Jakarta",
+		"operatorsAliases": false
+	},
+	"production": {
+		"username": "root",
+		"password": "<YOUR-PASSWORD>",
+		"database": "crud",
+		"host": "localhost",
+		"dialect": "mysql",
+		"timezone": "Asia/Jakarta",
+		"operatorsAliases": false
+	}
+}

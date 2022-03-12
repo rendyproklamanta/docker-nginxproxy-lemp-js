@@ -1,0 +1,22 @@
+FROM node:16-alpine
+
+ENV SRCDIR /app
+
+# Add custom environment
+ENV PATH $SRCDIR/node_modules/.bin:$PATH
+
+RUN mkdir -p $SRCDIR && chown -R node:node $SRCDIR
+
+WORKDIR $SRCDIR
+
+COPY package.json .
+RUN yarn --verbose
+RUN yarn global add serve
+
+COPY . .
+RUN yarn build
+
+# Keep Port for production to 3000. Dont Change!
+EXPOSE 3000
+
+CMD serve -s build

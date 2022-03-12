@@ -1,0 +1,5 @@
+https://github.com/appleboy/ssh-action
+https://tayeh.me/posts/github_actions_via_ssh/
+https://viandwi24.medium.com/github-actions-sederhana-untuk-testing-dan-deploy-ke-server-vps-a43976cd6f46
+https://github.com/viandwi24/example-ci-cd-auto-deploy-vps
+https://stackoverflow.com/questions/69873818/how-to-git-pull-at-remote-server-and-then-recreate-the-env-file-using-github-act

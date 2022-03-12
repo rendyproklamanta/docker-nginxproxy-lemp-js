@@ -1,0 +1,19 @@
+version: '3.6'
+
+services:
+  api-dev:
+    # container_name: express-api # Dont use container_name in production server
+    image: api/development
+    restart: always
+    build:
+      context: ./
+      dockerfile: ./Dockerfiles/Dockerfile
+    expose:
+      - 80
+    env_file:
+      - .env
+
+networks:
+  default:
+    external:
+      name: nginx-proxy

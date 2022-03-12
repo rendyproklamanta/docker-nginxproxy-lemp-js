@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  react-frontend:
+    image: react/frontend
+    # container_name: react-frontend # Comment container_name to use deploy.sh (Zero downtime deployment)
+    build:
+      context: ./
+      dockerfile: ./Dockerfiles/Dockerfile.production
+    restart: always
+    env_file:
+      - ./env/production.env
+    expose:
+      - 80
+
+networks:
+  default:
+    external:
+      name: nginx-proxy

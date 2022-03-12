@@ -1,0 +1,13 @@
+.DS_Store
+.git
+.gitignore
+
+docs
+node_modules
+yarn.lock
+package-lock.json
+docker-compose.dev.yml
+build
+Makefile
+LICENSE
+README.md
