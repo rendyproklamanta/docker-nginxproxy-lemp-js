@@ -20,9 +20,7 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           script: |
             cd /home/dev.domain.com
-            git switch dev
-            git pull origin dev
+            git switch dev && git pull origin dev
             cd /home/dev.domain.com/deploy
-            chmod +x development.sh
-            ./development.sh
+            chmod +x development.sh && ./development.sh
             chmod -x development.sh

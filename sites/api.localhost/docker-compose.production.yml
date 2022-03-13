@@ -2,7 +2,7 @@ version: '3.6'
 
 services:
   api-production:
-    # container_name: express-api # Dont use container_name in production server
+    # container_name: api-production # Dont use container_name in deployment server
     image: api/production
     restart: always
     build:

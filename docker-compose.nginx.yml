@@ -20,6 +20,8 @@ services:
 
       # document_root Location
       - ./sites/:/var/www/public/
+    environment:
+      - TZ=Asia/Jakarta
 
   nginx-gen:
     image: nginxproxy/docker-gen

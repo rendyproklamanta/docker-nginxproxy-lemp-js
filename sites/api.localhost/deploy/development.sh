@@ -1,11 +1,24 @@
 #!/bin/bash
 
 source pre-deploy.sh
-
-echo "----- Deploy developoment docker -----"    
-
 cd ..
-docker-compose up --build --force-recreate -d
+
+
+echo "---[ Running Development Deployment ]---"
+
+# Change service_name same as in your docker-compose.yml
+service_name=api-development
+docker_compose_name=docker-compose.yml
+
+old_container_id=$(docker ps -f name=$service_name -q | tail -n1)
+
+# bring a new container online, running new code
+# (nginx continues routing to the old container only)
+docker-compose -f $docker_compose_name up -d --no-deps --scale $service_name=2 --no-recreate --build $service_name
+
+# wait for new container to be available
+new_container_id=$(docker ps -f name=$service_name -q | head -n1)
+
 
 cd deploy
 source post-deploy.sh

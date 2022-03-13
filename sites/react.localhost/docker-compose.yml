@@ -1,9 +1,9 @@
 version: '3'
 
 services:
-  dashboard:
-    container_name: mydocker-dashboard-dev
-    image: mydocker/dashboard-dev
+  react-development:
+    # container_name: react-development # Comment container_name to use deploy script (Zero downtime deployment)
+    image: react/development
     restart: always
     build:
       context: ./

@@ -12,6 +12,7 @@ services:
       - ./mysql/data/:/var/lib/mysql
       # - ./mysql/my.cnf:/etc/my.cnf
     environment:
+      - TZ=Asia/Jakarta
       - MYSQL_ROOT_PASSWORD=root
       # - MYSQL_DATABASE=db_name
       # - MYSQL_USER=db_usr

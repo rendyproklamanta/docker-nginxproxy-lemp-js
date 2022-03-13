@@ -1,8 +1,8 @@
 version: '3.6'
 
 services:
-  api-dev:
-    # container_name: express-api # Dont use container_name in production server
+  api-development:
+    # container_name: api-development # Dont use container_name in deployment server
     image: api/development
     restart: always
     build:

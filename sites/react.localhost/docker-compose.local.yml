@@ -1,9 +1,9 @@
 version: '3.9'
 
 services:
-  dashboard:
-    container_name: mydocker-dashboard-local
-    image: mydocker/dashboard-local
+  react-local:
+    container_name: react-local
+    image: react/local
     restart: always
     build:
       context: ./

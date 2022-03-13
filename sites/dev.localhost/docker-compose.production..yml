@@ -6,7 +6,7 @@ services:
     build:
       context: ./
       dockerfile: ../../php/Dockerfile.php74
-    image: lemp/phpfpm
+    image: php/fpm74
     # container_name: php-production # Comment container_name to use deploy.sh (Zero downtime deployment)
     restart: always
     volumes:

@@ -1,7 +1,7 @@
 version: '3.9'
 
 services:
-  api-express:
+  api-local:
     container_name: api-local
     image: express/api-local
     restart: always

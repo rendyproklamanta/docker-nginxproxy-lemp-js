@@ -1,9 +1,9 @@
 version: '3'
 
 services:
-  react-frontend:
-    image: react/frontend
-    # container_name: react-frontend # Comment container_name to use deploy.sh (Zero downtime deployment)
+  react-production:
+    image: react/production
+    # container_name: react-production # Comment container_name to use deploy script (Zero downtime deployment)
     build:
       context: ./
       dockerfile: ./Dockerfiles/Dockerfile.production

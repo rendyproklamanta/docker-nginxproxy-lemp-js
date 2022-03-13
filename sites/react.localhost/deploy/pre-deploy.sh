@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "----- Running Predeploy -----"  
+echo "-----[ Running Predeploy ]-----"  
 
 yes | docker image prune --filter="dangling=true"
 
