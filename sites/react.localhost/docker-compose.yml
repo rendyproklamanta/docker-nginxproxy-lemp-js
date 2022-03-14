@@ -7,7 +7,7 @@ services:
     restart: always
     build:
       context: ./
-      dockerfile: ./Dockerfiles/Dockerfile
+      dockerfile: ./Dockerfile
     expose:
       - 80
     env_file:

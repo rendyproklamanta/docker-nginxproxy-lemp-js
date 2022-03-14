@@ -3,15 +3,11 @@ version: '3.6'
 services:
 
   php-production:
-    build:
-      context: ./
-      dockerfile: ../../php/Dockerfile.php74
     image: php/fpm74
-    # container_name: php-production # Comment container_name to use deploy.sh (Zero downtime deployment)
+    container_name: php-production # Comment container_name to use deploy.sh (Zero downtime deployment)
     restart: always
     volumes:
       - ./:/var/www/public/livedomain.com # document_root Location required if your site running php
-      - ../../php/config/php.ini:/usr/local/etc/php/php.ini
     env_file:
       - ./env/production.env
     expose:

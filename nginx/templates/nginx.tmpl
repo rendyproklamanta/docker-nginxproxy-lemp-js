@@ -51,7 +51,16 @@
 {{ end }}
 
 {{ define "location" }}
+
+{{ if eq .Proto "fastcgi" }}
+root {{ trim .VhostRoot }};
+index index.php;
+location / {
+    try_files $uri $uri/ /index.php;
+{{ else }}
 location {{ .Path }} {
+{{ end }}
+
 	{{ if eq .NetworkTag "internal" }}
 	# Only allow traffic from internal clients
 	include /etc/nginx/network_internal.conf;
@@ -61,7 +70,7 @@ location {{ .Path }} {
 		include uwsgi_params;
 		uwsgi_pass {{ trim .Proto }}://{{ trim .Upstream }};
 	{{ else if eq .Proto "fastcgi" }}
-		root   {{ trim .VhostRoot }};
+	location ~ \.php$ {
 		try_files $uri /index.php =404;
         fastcgi_index index.php;
         fastcgi_buffers 16 16k;
@@ -70,6 +79,7 @@ location {{ .Path }} {
 		fastcgi_pass {{ trim .Upstream }};
 		# fastcgi_pass php-test:9000;
 		include fastcgi_params;
+	}
 	{{ else if eq .Proto "grpc" }}
 		grpc_pass {{ trim .Proto }}://{{ trim .Upstream }};
 	{{ else }}

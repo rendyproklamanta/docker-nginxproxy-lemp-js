@@ -1,0 +1,18 @@
+version: '3.6'
+
+services:
+
+  php-fpm74:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    image: php/fpm74
+    container_name: php-fpm74 # Comment container_name to use deploy.sh (Zero downtime deployment)
+    restart: always
+    volumes:
+      - ../config/php.ini:/usr/local/etc/php/php.ini
+
+networks:
+  default:
+    external:
+      name: nginx-proxy

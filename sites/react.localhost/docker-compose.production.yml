@@ -9,7 +9,7 @@ services:
       dockerfile: ./Dockerfiles/Dockerfile.production
     restart: always
     env_file:
-      - ./env/production.env
+      - .env.production
     expose:
       - 80
 

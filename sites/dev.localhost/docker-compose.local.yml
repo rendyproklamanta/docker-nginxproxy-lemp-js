@@ -3,15 +3,11 @@ version: '3.6'
 services:
 
   php-local:
-    build:
-      context: ./
-      dockerfile: ../../php/Dockerfile.php74
-    image: lemp/phpfpm
+    image: php/fpm74
     container_name: php-local
     restart: always
     volumes:
       - ./:/var/www/public/dev.localhost # document_root Location required if your site running php
-      - ../../php/config/php.ini:/usr/local/etc/php/php.ini
     env_file:
       - ./env/local.env
     expose:
