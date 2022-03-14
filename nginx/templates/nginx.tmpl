@@ -328,6 +328,7 @@ server {
 
 {{ if eq $https_method "redirect" }}
 server {
+	client_max_body_size 100M;
 	server_name {{ $host }};
 	{{ if $server_tokens }}
 	server_tokens {{ $server_tokens }};
@@ -359,6 +360,7 @@ server {
 {{ end }}
 
 server {
+	client_max_body_size 100M;
 	server_name {{ $host }};
 	{{ if $server_tokens }}
 	server_tokens {{ $server_tokens }};
