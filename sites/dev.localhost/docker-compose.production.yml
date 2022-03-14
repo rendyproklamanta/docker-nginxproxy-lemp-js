@@ -9,6 +9,7 @@ services:
     volumes:
       - ./:/var/www/public/livedomain.com # document_root Location required if your site running php
       - ../../php/config/php.ini:/usr/local/etc/php/php.ini # include php.ini
+    working_dir: /var/www/public/livedomain.com
     env_file:
       - ./env/production.env
     expose:
