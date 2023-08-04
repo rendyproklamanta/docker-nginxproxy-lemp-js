@@ -3,30 +3,13 @@ version: '3.6'
 # Database Services ----------------------------------
 services:
 
-#  db:
-#    image: mariadb:10.1
-#    container_name: mariadb
-#    restart: always
-#    volumes:
-#      - ./mysql/initdb/:/docker-entrypoint-initdb.d
-#      - ./mysql/data/:/var/lib/mysql
-#      # - ./mysql/my.cnf:/etc/my.cnf
-#    environment:
-#      - TZ=Asia/Jakarta
-#      - MYSQL_ROOT_PASSWORD=root
-      # - MYSQL_DATABASE=db_name
-      # - MYSQL_USER=db_usr
-      # - MYSQL_PASSWORD=db_password
-#    ports:
-#      - "3306:3306"
-
   db:
     image: mysql
     command: --default-authentication-plugin=mysql_native_password
     restart: always
     environment:
       - TZ=Asia/Jakarta
-      - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/MYSQL_ROOT_PASSWORD 
+      - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/MYSQL_ROOT_PASSWORD
     volumes:
       - ./mysql/data/:/var/lib/mysql
       - ./mysql/my.cnf:/etc/my.cnf
@@ -41,6 +24,26 @@ services:
     restart: always
     ports:
       - "8000:80"
+
+  # Get backup files : docker container exec mysql-cron-backup ls /backup
+  # Restore backup file : docker container exec mysql-cron-backup /restore.sh /backup/<your_sql_backup_gz_file>
+  mysql-cron-backup:
+    image: fradelg/mysql-cron-backup
+    depends_on:
+      - db
+    volumes:
+      - ./mysql/backup:/backup
+    environment:
+      - TZ=Asia/Jakarta
+      - MYSQL_HOST=db
+      - MYSQL_USER=root
+      - MYSQL_PASS_FILE=/run/secrets/MYSQL_ROOT_PASSWORD
+      - MAX_BACKUPS=10
+      - INIT_BACKUP=1
+      - CRON_TIME=0 0 * * *
+    secrets:
+      - MYSQL_ROOT_PASSWORD
+    restart: unless-stopped
 
   redis:
     image: redis:latest
@@ -64,7 +67,7 @@ services:
 secrets:
   MYSQL_ROOT_PASSWORD:
     external: true
-    
+         
 networks:
   default:
     external:
