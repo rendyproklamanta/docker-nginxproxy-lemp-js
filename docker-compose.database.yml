@@ -3,23 +3,36 @@ version: '3.6'
 # Database Services ----------------------------------
 services:
 
-  db:
-    image: mariadb:10.1
-    container_name: mariadb
-    restart: always
-    volumes:
-      - ./mysql/initdb/:/docker-entrypoint-initdb.d
-      - ./mysql/data/:/var/lib/mysql
-      # - ./mysql/my.cnf:/etc/my.cnf
-    environment:
-      - TZ=Asia/Jakarta
-      - MYSQL_ROOT_PASSWORD=root
+#  db:
+#    image: mariadb:10.1
+#    container_name: mariadb
+#    restart: always
+#    volumes:
+#      - ./mysql/initdb/:/docker-entrypoint-initdb.d
+#      - ./mysql/data/:/var/lib/mysql
+#      # - ./mysql/my.cnf:/etc/my.cnf
+#    environment:
+#      - TZ=Asia/Jakarta
+#      - MYSQL_ROOT_PASSWORD=root
       # - MYSQL_DATABASE=db_name
       # - MYSQL_USER=db_usr
       # - MYSQL_PASSWORD=db_password
-    ports:
-      - "3306:3306"
+#    ports:
+#      - "3306:3306"
 
+  db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      - TZ=Asia/Jakarta
+      - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/MYSQL_ROOT_PASSWORD 
+    volumes:
+      - ./mysql/data/:/var/lib/mysql
+      - ./mysql/my.cnf:/etc/my.cnf
+    secrets:
+      - mysql_root_password
+      
   pma:
     depends_on:
       - db
@@ -44,9 +57,15 @@ services:
     ports:
       - 8081:8081
 
+# printf "mysqlrootpass" | docker secret create MYSQL_ROOT_PASSWORD -
+# OR
+# openssl rand -base64 12 | docker secret create db_root_password -
+# get passsword : docker exec -it $(docker ps -f name=db -q) cat /run/secrets/MYSQL_ROOT_PASSWORD
+secrets:
+  MYSQL_ROOT_PASSWORD:
+    external: true
+    
 networks:
   default:
     external:
       name: nginx-proxy
-
-# ------------------------------------------------------
